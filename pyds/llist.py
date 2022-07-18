@@ -24,7 +24,7 @@ class LinkedList:
         while curr["next"] is not None:
             curr = curr["next"]
         curr["next"] = ListNode(data=x)
-        self._len+=1
+        self._len += 1
 
     def extend(self, x):
         curr = self._head
@@ -33,7 +33,7 @@ class LinkedList:
         for i in x:
             curr["next"] = ListNode(data=i)
             curr = curr["next"]
-            self._len+=1
+            self._len += 1
 
     def insert(self, x, pos):
         if pos > self._len:
@@ -54,8 +54,31 @@ class LinkedList:
             curr["next"] = new
             self._len += 1
 
+    def delete(self, x):
+        curr = self._head
+        if curr["data"] == x:
+            self._head = curr["next"]
+            curr["next"] = None
+            return
+        while curr["next"]["data"] != x and curr["next"] is not None:
+            curr = curr["next"]
+        if curr["next"] is None:
+            return -1
+        else:
+            temp = curr["next"]
+            curr["next"] = temp["next"]
+            temp["next"] = None
+            return 1
+
+    def mid(self):
+        slow = self._head
+        fast = self._head
+        while fast is not None and fast["next"] is not None:
+            slow = slow["next"]
+            fast = fast["next"]["next"]
+        return slow["data"]
+
 
 class DoublyLinkedList:
     def __init__(self, x):
         self._head = DoubleListNode(data=x)
-
